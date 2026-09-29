@@ -7,6 +7,13 @@
 import { defineConfig } from "@lovable.dev/vite-tanstack-config";
 
 export default defineConfig({
+  // Enable Nitro when building in Lovable's sandbox or when NITRO=true;
+  // otherwise build standard TanStack Start output (dist/server/server.js) for local vite preview.
+  nitro: Boolean(
+    process.env["LOVABLE_SANDBOX"] === "1" ||
+      process.env["DEV_SERVER__PROJECT_PATH"] ||
+      process.env["NITRO"],
+  ),
   tanstackStart: {
     // Redirect TanStack Start's bundled server entry to src/server.ts (our SSR error wrapper).
     // nitro/vite builds from this
